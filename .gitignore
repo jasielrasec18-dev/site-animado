@@ -1,0 +1,13 @@
+# Backups manuais do HTML/CSS (o histórico do git cobre isso)
+backups/
+backup/
+
+# Capturas de conferência geradas pelas ferramentas (pesadas, reproduzíveis com tools/)
+comparacoes/
+
+# Logs de geração de imagens
+*.log
+
+# Python
+__pycache__/
+*.pyc
