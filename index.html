@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atelier — Tempo</title>
+  <meta name="description" content="Precisão mecânica e design atemporal para quem valoriza o essencial.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    /* #frame: só fundo + relógio, para servir de quadro inicial do vídeo */
+    function modoFrame() { document.documentElement.classList.toggle("modo-frame", location.hash === "#frame"); }
+    modoFrame();
+    addEventListener("hashchange", modoFrame);
+    /* .js esconde as seções antes da entrada; sem JS, tudo aparece */
+    document.documentElement.classList.add("js");
+  </script>
+  <script src="js/site.js" defer></script>
+  <link rel="stylesheet" href="css/filme.css">
+  <script src="js/filme.js"></script>
+</head>
+<body>
+  <header class="topo">
+    <a class="logo" href="#inicio">Atelier</a>
+    <nav class="menu" aria-label="Principal">
+      <a href="#calibre">Coleção</a>
+      <a href="#angulos">Galeria</a>
+      <a href="#oficio">Ofício</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <button class="busca" type="button" aria-label="Buscar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7.5"/><path d="M16 16l6 6"/></svg>
+    </button>
+  </header>
+
+  <main>
+  <!-- ---------- Abertura: trilha de rolagem que controla o filme (js/filme.js) ---------- -->
+  <div class="trilha">
+  <div class="palco">
+  <section class="hero" id="inicio">
+    <div class="camada atmosfera" aria-hidden="true"></div>
+    <h1 class="camada titulo">Tempo</h1>
+    <img class="camada relogio" src="assets/relogio.webp" alt="Relógio mecânico de aço com mostrador preto e ponteiros dourados">
+    <video class="camada video-filme"muted playsinline preload="auto" disablepictureinpicture tabindex="-1" aria-hidden="true"></video>
+
+    <div class="chamada">
+      <p>Precisão mecânica e design atemporal para quem valoriza o essencial e enxerga o tempo de outra forma.</p>
+      <a class="botao" href="#calibre">
+        Explorar coleção
+        <svg viewBox="0 0 32 12" aria-hidden="true"><path d="M0 6h30M25 1l5 5-5 5"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="capitulos" aria-label="O relógio, camada por camada">
+    <article class="capitulo" data-de="0.06" data-ate="0.34" data-menu="#calibre">
+      <span class="capitulo__num">01 / 03</span>
+      <h2>Safira e luneta</h2>
+      <p>O cristal de safira e a luneta polida se erguem primeiro: a camada que protege todo o resto.</p>
+    </article>
+    <article class="capitulo" data-de="0.38" data-ate="0.66" data-menu="#angulos">
+      <span class="capitulo__num">02 / 03</span>
+      <h2>Mostrador</h2>
+      <p>Ponteiros e mostrador preto raiado avançam, com os índices aplicados em ouro.</p>
+    </article>
+    <article class="capitulo" data-de="0.70" data-ate="1" data-menu="#oficio">
+      <span class="capitulo__num">03 / 03</span>
+      <h2>Calibre AT‑01</h2>
+      <p>Rotor, rodas e balanço: 182 peças montadas à mão por um único relojoeiro.</p>
+    </article>
+  </section>
+
+  <div class="progresso" aria-hidden="true"><span></span></div>
+  </div>
+  </div>
+
+  <!-- ---------- Assinatura: o calibre ---------- -->
+  <section class="secao assinatura" id="calibre" aria-labelledby="t-calibre">
+    <div class="assinatura__texto revelar">
+      <p class="sobretitulo">Calibre AT‑01 · automático</p>
+      <h2 id="t-calibre">O coração à vista</h2>
+      <p>A janela às 9 horas mostra o balanço batendo oito vezes por segundo. Cada calibre é montado e regulado à mão, na mesma bancada.</p>
+    </div>
+    <figure class="assinatura__foto revelar">
+      <img src="assets/calibre.webp" width="1672" height="941" loading="lazy" alt="Balanço, espiral e rubis do calibre vistos pela janela esqueleto do mostrador">
+    </figure>
+    <dl class="specs revelar">
+      <div><dt>Reserva de marcha</dt><dd>72 h</dd></div>
+      <div><dt>Frequência</dt><dd>4 Hz <small>28.800 alt./h</small></dd></div>
+      <div><dt>Rubis</dt><dd>26</dd></div>
+      <div><dt>Caixa</dt><dd>40 mm <small>aço 316L, 11,2 mm de altura</small></dd></div>
+    </dl>
+  </section>
+
+  <!-- ---------- Galeria: três ângulos ---------- -->
+  <section class="secao galeria" id="angulos" aria-labelledby="t-angulos">
+    <header class="secao__cabeca revelar">
+      <p class="sobretitulo">Tempo 40</p>
+      <h2 id="t-angulos">Três ângulos</h2>
+    </header>
+    <div class="galeria__grade">
+      <figure class="revelar">
+        <img src="assets/frente.webp" width="1024" height="1280" loading="lazy" alt="Relógio de frente: mostrador preto, índices dourados, janela esqueleto e segundos às 6 horas">
+        <figcaption><span>Frente</span>Mostrador preto raiado, índices aplicados em ouro e segundos às 6 horas.</figcaption>
+      </figure>
+      <figure class="revelar">
+        <img src="assets/perfil.webp" width="1024" height="1280" loading="lazy" alt="Relógio de perfil, do lado da coroa">
+        <figcaption><span>Perfil</span>Flanco escovado de 11,2 mm e coroa canelada de rosca.</figcaption>
+      </figure>
+      <figure class="revelar">
+        <img src="assets/fundo-safira.webp" width="1024" height="1280" loading="lazy" alt="Fundo de safira com o rotor esqueletizado à mostra">
+        <figcaption><span>Fundo</span>Safira transparente e rotor esqueletizado com Côtes de Genève.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ---------- Ateliê: três etapas ---------- -->
+  <section class="secao atelie" id="oficio" aria-labelledby="t-oficio">
+    <figure class="atelie__foto revelar">
+      <img src="assets/atelie.webp" width="1672" height="941" loading="lazy" alt="Mãos de um relojoeiro ajustando o relógio com uma pinça na bancada">
+    </figure>
+    <header class="secao__cabeca revelar">
+      <p class="sobretitulo">O ateliê</p>
+      <h2 id="t-oficio">Uma bancada, três etapas</h2>
+    </header>
+    <ol class="etapas">
+      <li class="revelar">
+        <span class="etapas__num">01</span>
+        <h3>Montagem</h3>
+        <p>As 182 peças do calibre passam pelas mãos de um único relojoeiro.</p>
+      </li>
+      <li class="revelar">
+        <span class="etapas__num">02</span>
+        <h3>Regulagem</h3>
+        <p>Ajuste em cinco posições, com tolerância de −2 a +4 segundos por dia.</p>
+      </li>
+      <li class="revelar">
+        <span class="etapas__num">03</span>
+        <h3>Observação</h3>
+        <p>15 dias de marcha registrada antes da entrega, com a ficha junto ao relógio.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ---------- Ação final ---------- -->
+  <section class="secao acao" id="contato" aria-labelledby="t-contato">
+    <div class="revelar">
+      <p class="sobretitulo">Série de 250 peças numeradas</p>
+      <h2 id="t-contato">Reserve o seu Tempo 40</h2>
+      <p>Prova no ateliê, com hora marcada. Entrega em até 60 dias após a reserva.</p>
+      <div class="acao__botoes">
+        <a class="botao" href="mailto:reservas@atelier.example?subject=Reserva%20Tempo%2040">
+          Agendar visita
+          <svg viewBox="0 0 32 12" aria-hidden="true"><path d="M0 6h30M25 1l5 5-5 5"/></svg>
+        </a>
+        <a class="link-seta" href="#calibre">Rever a ficha técnica</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="rodape__marca">
+    <a class="logo" href="#inicio">Atelier</a>
+    <p>Relógios mecânicos montados à mão.</p>
+  </div>
+  <div class="rodape__col">
+    <h3>Ateliê</h3>
+    <p>São Paulo · terça a sábado, 10h às 19h<br>Visitas com hora marcada</p>
+  </div>
+  <div class="rodape__col">
+    <h3>Contato</h3>
+    <p><a href="mailto:reservas@atelier.example">reservas@atelier.example</a></p>
+  </div>
+  <p class="rodape__fim">© 2026 Atelier. Garantia de 5 anos para o calibre AT‑01.</p>
+</footer>
+</body>
+</html>
