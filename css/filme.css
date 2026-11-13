@@ -1,0 +1,173 @@
+/* Abertura com filme controlado pela rolagem (js/filme.js).
+   Sem a classe html.filme (sem JS ou com movimento reduzido): hero estático e capítulos em seção normal, sem vídeo.
+   Variáveis no .palco, escritas pelo filme.js: --k dissolução 0→1, --z afastamento da câmera 0→1, --p progresso 0→1. */
+
+/* ---------- Capítulos estáticos (padrão) ---------- */
+.video-filme,
+.progresso { display: none; }
+
+.capitulos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3vw;
+  padding: 9vw var(--margem) 7vw;
+  background: var(--fundo);
+}
+
+.capitulo__num {
+  display: block;
+  margin-bottom: 1.1em;
+  font-size: 0.95vw;
+  letter-spacing: 0.3em;
+  color: var(--ouro-claro);
+}
+
+.capitulo h2 {
+  font-family: var(--fonte-titulo);
+  font-weight: 400;
+  font-size: 2.9vw;
+  line-height: 1.05;
+  color: var(--creme);
+}
+
+.capitulo p {
+  margin-top: 0.9em;
+  max-width: 28em;
+  font-size: 1.2vw;
+  font-weight: 300;
+  line-height: 1.55;
+  color: #e9dcc6;
+}
+
+/* ---------- Modo filme: trilha de 420vh com o palco preso ---------- */
+html.filme .trilha { position: relative; height: 420vh; }
+
+html.filme .palco {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+html.filme .hero { height: 100%; min-height: 0; }
+
+/* Cena estática se dissolve no filme nos primeiros 3% */
+html.filme .titulo,
+html.filme .relogio,
+html.filme .chamada { opacity: calc(1 - var(--k, 0)); }
+
+html.filme .palco.no-filme .chamada { pointer-events: none; }
+
+/* Filme: escala e deslocamento medidos por tools/alinhar.py (1º frame x assets/start-frame.png:
+   escala 1.0235, +0.840% / +1.736%, PSNR 15.7 → 24.0 dB). O alinhamento solta ao longo do filme (--z). */
+html.filme .video-filme {
+  --a:calc(1 - var(--z, 0));
+  display: block;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: var(--k, 0);
+  transform-origin: 50% 50%;
+  transform: translate(calc(0.840% * var(--a)), calc(1.736% * var(--a))) scale(calc(1 + 0.0235 * var(--a)));
+  background: transparent;
+}
+
+/* Capítulos sobre o filme */
+html.filme .capitulos {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: block;
+  padding: 0;
+  background: none;
+  pointer-events: none;
+}
+
+html.filme .capitulos::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(62% 58% at 0% 100%, rgba(8, 6, 4, 0.82), rgba(8, 6, 4, 0.45) 45%, transparent 75%);
+  opacity: var(--k, 0);
+}
+
+/* Peças que sobem até o menu: véu escuro no topo durante o filme */
+html.filme .capitulos::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 18vh;
+  background: linear-gradient(180deg, rgba(8, 6, 4, 0.78), transparent);
+  opacity: var(--k, 0);
+}
+
+html.filme .capitulo {
+  position: absolute;
+  left: var(--margem);
+  bottom: 12vh;
+  width: 30vw;
+  opacity: 0;
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.6);
+  will-change: opacity, transform;
+}
+
+/* Barra de progresso */
+html.filme .progresso {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 7;
+  height: 3px;
+  background: rgba(246, 234, 214, 0.12);
+}
+
+html.filme .progresso span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--cobre), var(--ouro-claro));
+  transform-origin: 0 50%;
+  transform: scaleX(var(--p, 0));
+}
+
+/* #frame: só fundo + relógio */
+.modo-frame .capitulos,
+.modo-frame .progresso { display: none; }
+
+/* ---------- Celular ---------- */
+@media (max-aspect-ratio: 1/1) {
+  .capitulos { grid-template-columns: 1fr; gap: 12vw; padding: 18vw var(--margem); }
+  .capitulo__num { font-size: 3vw; }
+  .capitulo h2 { font-size: 9vw; }
+  .capitulo p { font-size: 4.3vw; }
+
+  html.filme .palco { height: 100svh; }
+
+  /* Faixa 16:9 posicionada para que o relógio do 1º frame caia sobre o relógio recortado
+     (60vw de largura, topo em 19,5%): 60 / 0,315 = 190,5vw. Ao longo do filme a faixa
+     encolhe para 125vw para caber a vista explodida. */
+  html.filme .video-filme {
+    --w:calc(190.48vw - 65.48vw * var(--z, 0));
+    inset: auto;
+    left: calc(39.16vw + 4.59vw * var(--z, 0) - var(--w) / 2);
+    top: calc(19.5svh + 31.18vw - var(--w) * 0.28125);
+    width: var(--w);
+    height: calc(var(--w) * 0.5625);
+    object-fit: fill;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 86%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 86%, transparent 100%);
+  }
+
+  html.filme .capitulos::before {
+    background: linear-gradient(180deg, transparent 52%, rgba(8, 6, 4, 0.88) 78%);
+  }
+
+  html.filme .capitulo {
+    left: var(--margem);
+    right: var(--margem);
+    bottom: 7svh;
+    width: auto;
+  }
+}
